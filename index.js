@@ -15,7 +15,7 @@ const app = express();
 const PORT = 5000 || process.env.PORT;
 
 // connect to db
-connectDB();
+
 
 app.use(express.urlencoded({extended:true }));
 app.use(express.json());
@@ -45,6 +45,7 @@ app.locals.isRouteActive = isRouteActive;
 app.use('/' , require('./server/routes/main'));
 app.use('/' , require('./server/routes/admin'));
 
-app.listen(PORT , ()=> {
+connectDB().then(
+    app.listen(PORT , ()=> {
     console.log('App listening on ' , PORT);
-})
+}))
